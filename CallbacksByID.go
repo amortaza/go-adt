@@ -5,33 +5,33 @@ import (
 )
 
 type CallbacksByID struct {
-	cbsByID map[string] *list.List
+	cbsById map[string] *list.List
 }
 
 func NewCallbacksByID() *CallbacksByID {
 	ans := &CallbacksByID{}
 
-	ans.cbsByID = make(map[string] *list.List)
+	ans.cbsById = make(map[string] *list.List)
 
 	return ans
 }
 
 func (c *CallbacksByID) Clear(id string) {
-	delete(c.cbsByID, id)
+	delete(c.cbsById, id)
 }
 
-func (c *CallbacksByID) ClearAll(id string) {
-	c.cbsByID = make(map[string] *list.List)
+func (c *CallbacksByID) ClearAll() {
+	c.cbsById = make(map[string] *list.List)
 }
 
 func (c *CallbacksByID) HasId(id string) bool {
-	_, ok := c.cbsByID[id]
+	_, ok := c.cbsById[id]
 
 	return ok
 }
 
 func (c *CallbacksByID) CallAll(id string, param interface{}) {
-	cbs, ok := c.cbsByID[id]
+	cbs, ok := c.cbsById[id]
 
 	if ok {
 		for e := cbs.Front(); e != nil; e = e.Next() {
@@ -44,12 +44,12 @@ func (c *CallbacksByID) CallAll(id string, param interface{}) {
 
 func (c *CallbacksByID) Add(id string, cb func(interface{})) {
 
-	cbs, ok := c.cbsByID[id]
+	cbs, ok := c.cbsById[id]
 
 	if !ok {
 		cbs = list.New()
 
-		c.cbsByID[id] = cbs
+		c.cbsById[id] = cbs
 	}
 
 	cbs.PushBack(cb)

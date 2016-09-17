@@ -4,33 +4,33 @@ import (
 	"container/list"
 )
 
-type CallbacksByID struct {
+type CallbacksById struct {
 	cbsById map[string] *list.List
 }
 
-func NewCallbacksByID() *CallbacksByID {
-	ans := &CallbacksByID{}
+func NewCallbacksById() *CallbacksById {
+	ans := &CallbacksById{}
 
 	ans.cbsById = make(map[string] *list.List)
 
 	return ans
 }
 
-func (c *CallbacksByID) Clear(id string) {
+func (c *CallbacksById) ClearId(id string) {
 	delete(c.cbsById, id)
 }
 
-func (c *CallbacksByID) ClearAll() {
+func (c *CallbacksById) ClearAll() {
 	c.cbsById = make(map[string] *list.List)
 }
 
-func (c *CallbacksByID) HasId(id string) bool {
+func (c *CallbacksById) HasId(id string) bool {
 	_, ok := c.cbsById[id]
 
 	return ok
 }
 
-func (c *CallbacksByID) CallAll(id string, param interface{}) {
+func (c *CallbacksById) CallAll(id string, param interface{}) {
 	cbs, ok := c.cbsById[id]
 
 	if ok {
@@ -42,7 +42,7 @@ func (c *CallbacksByID) CallAll(id string, param interface{}) {
 	}
 }
 
-func (c *CallbacksByID) Add(id string, cb func(interface{})) {
+func (c *CallbacksById) Add(id string, cb func(interface{})) {
 
 	cbs, ok := c.cbsById[id]
 

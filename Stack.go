@@ -11,11 +11,13 @@ type element struct {
 }
 
 func (s *Stack) Push(value interface{}) {
+
 	s.top = &element{value, s.top}
 	s.Size++
 }
 
 func (s *Stack) Pop() (value interface{}) {
+
 	if s.Size == 0 {
 		panic("Stack underflowed.")
 	}
@@ -28,6 +30,7 @@ func (s *Stack) Pop() (value interface{}) {
 }
 
 func (s *Stack) Top() interface{} {
+
 	if s.Size == 0 {
 		return nil
 	}

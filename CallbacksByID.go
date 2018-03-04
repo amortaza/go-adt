@@ -9,6 +9,7 @@ type CallbacksById struct {
 }
 
 func NewCallbacksById() *CallbacksById {
+
 	ans := &CallbacksById{}
 
 	ans.cbsById = make(map[string] *list.List)
@@ -17,25 +18,29 @@ func NewCallbacksById() *CallbacksById {
 }
 
 func (c *CallbacksById) ClearId(id string) {
+
 	delete(c.cbsById, id)
 }
 
 func (c *CallbacksById) ClearAll() {
+
 	c.cbsById = make(map[string] *list.List)
 }
 
 func (c *CallbacksById) HasId(id string) bool {
+
 	_, ok := c.cbsById[id]
 
 	return ok
 }
 
 func (c *CallbacksById) CallAll(id string, param interface{}) {
+
 	cbs, ok := c.cbsById[id]
 
 	if ok {
 		for e := cbs.Front(); e != nil; e = e.Next() {
-		    	cb := e.Value.(func(interface{}))
+	    	cb := e.Value.(func(interface{}))
 
 			cb(param)
 		}
